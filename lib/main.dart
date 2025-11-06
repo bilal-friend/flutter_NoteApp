@@ -7,8 +7,6 @@ import 'package:flutter_application_1/auth/register.dart';
 import 'package:flutter_application_1/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/categories/add.dart';
-import 'package:flutter_application_1/note/addNote.dart';
-import 'package:flutter_application_1/note/edit.dart';
 import 'package:flutter_application_1/note/view.dart';
 
 void main() async {

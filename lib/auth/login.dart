@@ -90,6 +90,7 @@ class LoginPageState extends State<LoginPage> {
                     } else if (!value.contains("@") && !value.contains(".")) {
                       return "Invalid email format";
                     }
+                    return null;
                   },
                 ),
                 SizedBox(height: 20),
@@ -105,6 +106,7 @@ class LoginPageState extends State<LoginPage> {
                     if (value!.isEmpty) {
                       return "Password is required";
                     }
+                    return null;
                   },
                 ),
                 SizedBox(height: 8),

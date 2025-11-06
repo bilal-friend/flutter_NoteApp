@@ -7,7 +7,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_application_1/categories/update.dart';
 import 'package:flutter_application_1/note/edit.dart';
 // import editor
-import 'package:flutter_application_1/editor/editor.dart';
 
 class categoryCard extends StatelessWidget {
   final String title;

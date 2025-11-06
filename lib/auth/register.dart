@@ -52,6 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         !value.contains(".")) {
                       return "Please enter a valid email";
                     }
+                    return null;
                   },
                 ),
                 SizedBox(height: 20),
@@ -67,6 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (value!.isEmpty) {
                       return "Please enter a password";
                     }
+                    return null;
                   },
                 ),
                 SizedBox(height: 20),
@@ -82,6 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (value != passwordController.text) {
                       return "Passwords don't match";
                     }
+                    return null;
                   },
                 ),
               ],
