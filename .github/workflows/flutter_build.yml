@@ -15,30 +15,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # JDK 17
+      # Set JDK 17 for Gradle
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      # Install Flutter 3.13 (Dart 3.9+)
+      # Install Flutter 3.13 (Dart >= 3.9)
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
 
-      # Disable analytics
+      # Disable analytics (optional)
       - run: flutter config --no-analytics
 
       # Get dependencies
       - run: flutter pub get
 
-      # Clean previous builds
+      # Clean old builds
       - run: flutter clean
 
       # Build release APK
       - run: flutter build apk --release
 
-      # Upload APK
+      # Upload APK artifact
       - uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
