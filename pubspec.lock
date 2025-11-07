@@ -710,7 +710,7 @@ packages:
     source: hosted
     version: "0.14.0-dev.13"
   rive_native:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rive_native
       sha256: "1b65b473939b008feb30c1f43785996063cefaf4ceddfa1a2ffe6051201e8d3a"

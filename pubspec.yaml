@@ -48,6 +48,7 @@ dependencies:
   firebase_auth: ^6.1.1
   google_sign_in: ^6.1.0
   awesome_dialog: ^3.3.0
+  rive_native: ^0.0.16
 
 dev_dependencies:
   flutter_test:
