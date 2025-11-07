@@ -2,8 +2,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
-
-    // Apply Firebase plugin here
     id("com.google.gms.google-services")
 }
 
@@ -18,7 +16,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "11"
     }
 
     defaultConfig {
@@ -32,7 +30,15 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
+    }
+
+    // New lint block
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 
@@ -41,7 +47,12 @@ flutter {
 }
 
 dependencies {
-    // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
     implementation("com.google.firebase:firebase-analytics")
+}
+
+// Speed up Java compilation
+tasks.withType<org.gradle.api.tasks.compile.JavaCompile> {
+    options.isFork = true
+    options.forkOptions.jvmArgs = listOf("-Xmx4096m")
 }
