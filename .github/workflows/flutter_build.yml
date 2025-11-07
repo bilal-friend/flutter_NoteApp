@@ -1,8 +1,12 @@
-name: Build Flutter APK
+name: Flutter APK Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -11,19 +15,31 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      # Set JDK 17 for Gradle
+      - uses: actions/setup-java@v3
         with:
-          flutter-version: '3.35.7'
+          distribution: temurin
+          java-version: 17
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build release APK
-        run: flutter build apk --release
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      # Install Flutter 3.13 (Dart >= 3.9)
+      - uses: subosito/flutter-action@v2
         with:
-          name: release-apk
+          flutter-version: '3.13.0'
+
+      # Disable analytics (optional)
+      - run: flutter config --no-analytics
+
+      # Get dependencies
+      - run: flutter pub get
+
+      # Clean old builds
+      - run: flutter clean
+
+      # Build release APK
+      - run: flutter build apk --release
+
+      # Upload APK artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
