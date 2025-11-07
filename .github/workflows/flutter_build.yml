@@ -13,29 +13,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - uses: actions/checkout@v3
 
-      # JDK 17
+      # 2️⃣ Set up JDK 17
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      # Flutter >=3.9
+      # 3️⃣ Install Flutter 3.13 (or any >=3.9)
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
 
-      # Disable analytics
+      # 4️⃣ Disable Flutter analytics
       - run: flutter config --no-analytics
 
-      # Get dependencies
+      # 5️⃣ Upgrade Flutter to make sure Dart SDK matches
+      - run: flutter upgrade
+
+      # 6️⃣ Get dependencies
       - run: flutter pub get
 
-      # Build release APK
+      # 7️⃣ Clean previous builds
+      - run: flutter clean
+
+      # 8️⃣ Build release APK
       - run: flutter build apk --release
 
-      # Upload APK artifact
+      # 9️⃣ Upload APK artifact
       - uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
