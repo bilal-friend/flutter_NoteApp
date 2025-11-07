@@ -13,48 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout your repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2️⃣ Set up JDK 17
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      # JDK 17
+      - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      # 3️⃣ Set up Flutter
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      # Flutter >=3.9
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.0' # Replace with your Flutter version >=3.9
+          flutter-version: '3.13.0'
 
-      # 4️⃣ Cache Flutter dependencies (optional, speeds up builds)
-      - name: Cache Pub Packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
+      # Disable analytics
+      - run: flutter config --no-analytics
 
-      # 5️⃣ Get dependencies
-      - name: Flutter Pub Get
-        run: flutter pub get
+      # Get dependencies
+      - run: flutter pub get
 
-      # 6️⃣ Clean previous builds
-      - name: Clean Flutter Build
-        run: flutter clean
+      # Build release APK
+      - run: flutter build apk --release
 
-      # 7️⃣ Build release APK
-      - name: Build Release APK
-        run: flutter build apk --release
-
-      # 8️⃣ Upload APK as artifact
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
+      # Upload APK artifact
+      - uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
